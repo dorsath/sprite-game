@@ -8,10 +8,15 @@ class Text: public Drawable {
     Font font;
     Program program;
     GLuint textureID;
+    std::string text;
+    float x;
+    float y;
 
     void draw();
     void setup();
     void generateTexture(std::string text);
+    Text(std::string text, float x_0, float y_0);
+
 
 
 };

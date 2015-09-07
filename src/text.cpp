@@ -25,27 +25,18 @@ void Text::draw(){
 
 }
 
-//void Text::generateTexture(std::string text){
-//  std::vector<int> textInts;
-//  for(char& c : text) {
-//    textInts.push_back( (int)c);
-//  }
-//  
-//  glGenTextures(1, &textureID);
-//  glBindTexture(GL_TEXTURE_1D, textureID);
-//  glTexImage1D(GL_TEXTURE_1D, 0, GL_RED, text.size(), 0, GL_RED, GL_INT, &textInts[0]);
-//  glTexParameteri(GL_TEXTURE_1D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
-//  glTexParameteri(GL_TEXTURE_1D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
-//  glBindTexture(GL_TEXTURE_1D, 0);
-//}
+Text::Text(std::string input_text, float x_0, float y_0){
+  text = input_text;
+  x = x_0;
+  y = y_0;
+}
 
 void Text::setup(){
-
-  std::string text("Hello world!");
-
   program.build("text");
   program.getUniformLocation("text");
   program.getUniformLocation("font");
+  
+  glUniform2f(program.getUniformLocation("position"), x, y);
   font.setup();
 
   model.create(text);
