@@ -31,6 +31,43 @@ Text::Text(std::string input_text, float x_0, float y_0){
   y = y_0;
 }
 
+void Text::generateModel(){
+  std::vector<float> vertices;
+  int i = 0;
+  for(char& c : text) {
+    //std::cout << (int)c << std::endl;
+
+    float x_offset = i;
+
+    float newVertices[12] = {
+      x_offset    , 0,
+      x_offset + 1, 1,
+      x_offset    , 1,
+
+      x_offset    , 0,
+      x_offset + 1, 0,
+      x_offset + 1, 1
+    };
+
+    vertices.insert(vertices.end(), newVertices, newVertices + 12);
+    i += 1;
+  }
+
+  model.verticesCount = vertices.size();
+
+  for(char& c : text) {
+    int code = (int) c;
+    code -= 32;
+
+    float character[2] = { float(code % 16), float(code/16) };
+    for (int i = 0; i < 6; ++i)
+      vertices.insert(vertices.end(), character, character + 2);
+  }
+
+  model.create(vertices);
+
+}
+
 void Text::setup(){
   program.build("text");
   program.getUniformLocation("text");
@@ -39,6 +76,6 @@ void Text::setup(){
   glUniform2f(program.getUniformLocation("position"), x, y);
   font.setup();
 
-  model.create(text);
+  generateModel();
 
 }

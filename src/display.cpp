@@ -12,7 +12,7 @@ namespace display {
   Matrix4 viewMatrix;
   GLuint MVPMatrixUnif;
   Coordinate mouseCoord;
-
+  
   float fFrustumScale = 1.0f;
   float fzNear = 0.1f;
   float fzFar = 100.0f;

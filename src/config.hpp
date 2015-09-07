@@ -20,6 +20,7 @@
 #include "drawable.hpp"
 #include "program.hpp"
 #include "object.hpp"
+#include "sprite.hpp"
 #include "font.hpp"
 #include "text.hpp"
 #include "polygon.hpp"

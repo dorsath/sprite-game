@@ -21,7 +21,6 @@ namespace display {
   };
 
   extern std::vector<Register> scrollRegisters;
-
   void error_callback(int error, const char* description);
   void key_callback(GLFWwindow* window, int key, int scancode, int action, int mods);
   GLuint CreateShader(GLenum eShaderType, const std::string &strShaderFile);
