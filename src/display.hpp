@@ -5,11 +5,6 @@ namespace display {
   extern GLuint theProgram;
   extern GLuint vertexBufferObject;
   extern GLuint vao;
-  struct Coordinate {
-    int x;
-    int y;
-  };
-
   extern Coordinate mouseCoord;
 
   struct Register {
@@ -20,7 +15,10 @@ namespace display {
     int high_y;
   };
 
+  extern Coordinate windowSize;
+
   extern std::vector<Register> scrollRegisters;
+  extern std::vector<Register> clickRegisters;
   void error_callback(int error, const char* description);
   void key_callback(GLFWwindow* window, int key, int scancode, int action, int mods);
   GLuint CreateShader(GLenum eShaderType, const std::string &strShaderFile);

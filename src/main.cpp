@@ -12,6 +12,8 @@ int main(void) {
 
   Sprite* sprite = new Sprite;
   display::add_to_draw(sprite);
+  display::Register spriteRegister = {sprite, 0, 0, 1, 1};
+  display::clickRegisters.push_back(spriteRegister);
 
   //Text* text = new Text("Hello world! Test!", -1.0, 0.9);
   //display::add_to_draw(text);

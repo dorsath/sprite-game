@@ -56,6 +56,13 @@ void Sprite::generateModel(){
   model.create(vertices);
 }
 
+void Sprite::click_callback(int button, int action, int modifiers, Coordinate mouseCoord) {
+  Coordinate clickCoord;
+  clickCoord.x = float(mouseCoord.x) / float(display::windowSize.x) * 64;
+  clickCoord.y = float(mouseCoord.y) / float(display::windowSize.y) * 48;
+  std::cout << clickCoord.x << ":" << clickCoord.y << "\n";
+}
+
 void Sprite::setup(){
   program.build("sprite_selector");
   program.getUniformLocation("sprites");

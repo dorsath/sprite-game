@@ -14,6 +14,7 @@
 #include <stdio.h>
 
 //My src
+#include "coordinate.h"
 #include "model.hpp"
 #include "octree.hpp"
 #include "fbo.hpp"
