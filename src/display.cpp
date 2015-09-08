@@ -10,7 +10,6 @@ namespace display {
   int keys[348];
   Matrix4 perspectiveMatrix;
   Matrix4 viewMatrix;
-  GLuint MVPMatrixUnif;
   Coordinate mouseCoord;
 
   float fFrustumScale = 1.0f;
