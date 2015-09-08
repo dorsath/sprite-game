@@ -1,6 +1,6 @@
 CC=c++
 FLAGS=-std=c++0x -Wc++11-extensions `pkg-config --cflags glfw3 --libs glfw3` -framework OpenGL
-DEBS=src/display.o src/program.o src/model.o src/background.o src/fbo.o src/object.o lib/Matrices.o src/slice.o src/octree.o src/polygon.o src/text.o src/font.o lib/lodepng.o
+DEBS=src/display.o src/program.o src/model.o src/fbo.o lib/Matrices.o src/text.o src/font.o lib/lodepng.o
 
 all: $(DEBS)
 	$(CC) $(FLAGS) -o bin/main src/main.cpp $(DEBS)

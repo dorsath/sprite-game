@@ -19,13 +19,9 @@
 #include "fbo.hpp"
 #include "drawable.hpp"
 #include "program.hpp"
-#include "object.hpp"
 #include "font.hpp"
 #include "text.hpp"
-#include "polygon.hpp"
-#include "slice.hpp"
 #include "display.hpp"
-#include "background.hpp"
 
 
 #endif
