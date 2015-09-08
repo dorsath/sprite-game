@@ -4,14 +4,15 @@ namespace display {
   GLFWwindow* window;
 
   std::vector<Drawable*> drawable_objects;
-  boost::tuple<int, int> mouseCoords;
   std::vector<Register> scrollRegisters;
+  std::vector<Register> clickRegisters;
 
   int keys[348];
   Matrix4 perspectiveMatrix;
   Matrix4 viewMatrix;
   Coordinate mouseCoord;
-
+  Coordinate windowSize;
+  
   float fFrustumScale = 1.0f;
   float fzNear = 0.1f;
   float fzFar = 100.0f;
@@ -37,6 +38,16 @@ namespace display {
       mouseCoord.y <= scrollRegisters[i].high_y) {
         scrollRegisters[i].model->scroll_callback(yoffset);
       }
+    }
+  }
+
+  void mouse_button_callback(GLFWwindow* window, int button, int action, int modifiers){
+    std::cout << "pressed mouse button: " << button << " action: " << action << std::endl;
+    std::cout << "position: " << mouseCoord.x << "x" << mouseCoord.y << std::endl;
+
+    std::cout << clickRegisters.size() << "\n";
+    for (int i = 0; i < clickRegisters.size(); i += 1) {
+      clickRegisters[i].model->click_callback(button, action, modifiers, mouseCoord);
     }
   }
 
@@ -149,11 +160,14 @@ namespace display {
     glfwSetKeyCallback(window, key_callback);
     glfwSetScrollCallback(window, scroll_callback);
     glfwSetCursorPosCallback(window, mouse_pos_callback);
+    glfwSetMouseButtonCallback(window, mouse_button_callback);
 
     check_error("Error during setup");
 
     int width, height;
     glfwGetFramebufferSize(window, &width, &height);
+    display::windowSize.x = width / 2; //retina fix
+    display::windowSize.y = height / 2; //retina fix
 
     perspectiveMatrix[0] = fFrustumScale / (width / (float)height);
     perspectiveMatrix[5] = fFrustumScale;

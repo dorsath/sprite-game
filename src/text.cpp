@@ -67,7 +67,6 @@ void Text::generateModel(Model* model, std::string input_text){
 
     vertices.insert(vertices.end(), newVertices, newVertices + 12);
     i += 1;
-    model->create(vertices);
   }
 
   model->verticesCount = vertices.size();
@@ -140,6 +139,5 @@ void Text::setup(){
   
   glUniform2f(program.getUniformLocation("position"), x, y);
   font.setup();
-
 
 }

@@ -14,11 +14,13 @@
 #include <stdio.h>
 
 //My src
+#include "coordinate.h"
 #include "model.hpp"
 #include "octree.hpp"
 #include "fbo.hpp"
 #include "drawable.hpp"
 #include "program.hpp"
+#include "sprite.hpp"
 #include "font.hpp"
 #include "text.hpp"
 #include "display.hpp"
