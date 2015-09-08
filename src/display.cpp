@@ -45,10 +45,13 @@ namespace display {
   {
     if (key == GLFW_KEY_ESCAPE && action == GLFW_PRESS)
       glfwSetWindowShouldClose(window, GL_TRUE);
-    if (action == 1)
-      keys[key] = 1;
-    if (action == 0)
-      keys[key] = 0;
+    keys[key] = action;
+
+    if (action == 1) {
+      for (int i = 0; i < drawable_objects.size(); i = i + 1) {
+        drawable_objects[i]->key_callback(key, mods);
+      }
+    }
   }
 
   GLuint CreateShader(GLenum eShaderType, const std::string &strShaderFile)
@@ -204,43 +207,6 @@ namespace display {
       glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
       glClearDepth(1.0f);
       glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-      if (keys[83]){
-        viewMatrix.translate(0, 0, -0.1);
-      }
-      if (keys[87]){
-        viewMatrix.translate(0, 0, 0.1);
-      }
-
-      if (keys[65]){
-        viewMatrix.translate( 0.1, 0, 0);
-      }
-      if (keys[68]){
-        viewMatrix.translate(-0.1, 0, 0);
-      }
-
-      if (keys[72]){
-        lightPos[0] -= 0.1;
-      }
-
-      if (keys[74]){
-        lightPos[2] -= 0.1;
-      }
-
-      if (keys[75]){
-        lightPos[2] += 0.1;
-      }
-
-      if (keys[76]){
-        lightPos[0] += 0.1;
-      }
-
-      if (keys[73]){
-        lightPos[1] -= 0.1;
-      }
-
-      if (keys[85]){
-        lightPos[1] += 0.1;
-      }
 
 
       for (int i = 0; i < drawable_objects.size(); i = i + 1) {

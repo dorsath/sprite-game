@@ -13,7 +13,7 @@ class Model {
 
   public:
     void load(const char* filepath);
-    void create(std::string text);
+    void create(std::vector<float> vertices);
 };
 
 #endif

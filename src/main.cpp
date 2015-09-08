@@ -10,7 +10,7 @@ int main(void) {
   //Octree octree;
   //octree.load("./textures/octree_ct.raw", 512);
 
-  Text* text = new Text("Hello world! Test$", -1.0, 0.9);
+  Text* text = new Text("", -1.0, 0.9);
   display::add_to_draw(text);
 
   //Slice* slice_0 = new Slice;

@@ -42,40 +42,7 @@ void Model::load(const char* filepath){
 
 }
 
-void Model::create(std::string text){
-  std::vector<float> vertices;
-  int i = 0;
-  for(char& c : text) {
-    //std::cout << (int)c << std::endl;
-
-    float x_offset = i;
-
-    float newVertices[12] = {
-      x_offset    , 0,
-      x_offset + 1, 1,
-      x_offset    , 1,
-
-      x_offset    , 0,
-      x_offset + 1, 0,
-      x_offset + 1, 1
-    };
-
-    vertices.insert(vertices.end(), newVertices, newVertices + 12);
-    i += 1;
-  }
-
-  verticesCount = vertices.size();
-
-  for(char& c : text) {
-    int code = (int) c;
-    code -= 32;
-
-    float character[2] = { float(code % 16), float(code/16) };
-    for (int i = 0; i < 6; ++i)
-      vertices.insert(vertices.end(), character, character + 2);
-  }
-
-
+void Model::create(std::vector<float> vertices){
   glGenBuffers(1, &vbo);
   glBindBuffer(GL_ARRAY_BUFFER, vbo);
   glBufferData(GL_ARRAY_BUFFER, vertices.size() * sizeof(float), &vertices[0], GL_STATIC_DRAW);
