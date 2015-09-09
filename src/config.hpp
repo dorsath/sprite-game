@@ -18,11 +18,15 @@
 #include "model.hpp"
 #include "octree.hpp"
 #include "fbo.hpp"
-#include "drawable.hpp"
-#include "program.hpp"
-#include "sprite.hpp"
 #include "font.hpp"
+#include "program.hpp"
+#include "drawable.hpp"
+
+//Drawables
+#include "sprite.hpp"
 #include "text.hpp"
+#include "chunk.hpp"
+
 #include "display.hpp"
 
 
