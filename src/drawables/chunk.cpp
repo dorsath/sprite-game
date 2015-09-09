@@ -15,6 +15,8 @@ void Chunk::draw(){
     glBindVertexArray(model.vao);
     glBindBuffer(GL_ARRAY_BUFFER, model.vbo);
 
+    glUniform2f(program.uniform("position"), position[0], position[1]);
+
     glEnableVertexAttribArray(0);
     glEnableVertexAttribArray(1);
 
@@ -34,6 +36,9 @@ void Chunk::setup(){
   generateModel();
   program.build("chunk");
   program.getUniformLocation("sprites");
+  program.getUniformLocation("position");
+  position[0] = -16;
+  position[1] = -16;
 }
 
 void Chunk::generateTexture(){
