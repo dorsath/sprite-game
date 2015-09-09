@@ -14,24 +14,22 @@ class Text: public Drawable {
       int column;
     };
 
+    double lastTime;
+    int nFrames;
+
   public:
     Font font;
     Program program;
+    Model model;
     GLuint textureID;
     std::string text;
-    std::vector<Line*> lines;
-    Cursor cursor;
     float x;
     float y;
 
     void draw();
     void setup();
-    void drawLine(Model model);
-    void newLine();
-    void key_callback(int key, int mods);
-    void writeLetter(int key);
     void generateTexture(std::string text);
-    void generateModel(Model* model, std::string text);
+    void generateModel(std::string text);
     Text(std::string text, float x_0, float y_0);
 
 

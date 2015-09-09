@@ -5,7 +5,8 @@ in vec2 textureCoords;
 uniform sampler2D sprites;
 
 void main() {
-  outputColor = texture(sprites, textureCoords);
+  gl_FragDepth = 0.9;
+  outputColor = vec4(texture(sprites, textureCoords).xy, 0, 0.0);
   //outputColor = vec4(1,1,1,1);
 }
 

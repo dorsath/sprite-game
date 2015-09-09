@@ -1,8 +1,12 @@
 #include "../config.hpp"
 
+Chunk::Chunk(std::vector<int> data){
+  width = 32;
+  height = 32;
+  data_.insert(data_.begin(), data.begin(), data.end());
+}
 
 void Chunk::draw(){
-  //return;
   program.use();
     glUniform1i(program.uniform("sprites"), 0);
     glActiveTexture(GL_TEXTURE0);
@@ -56,19 +60,20 @@ void Chunk::generateModel(){
 
   float xSprite;
   float ySprite;
-  int spriteNr = 960;
+  int spriteNr;
 
   float spriteWidth  = 1.0f / 64.0f;
   float spriteHeight = 1.0f / 48.0f;
-  xSprite = float(spriteNr % 64) * spriteWidth;
-  ySprite = float(spriteNr / 64) * spriteHeight;
 
   printf("sprite size: %.2f:%.2f\n", spriteWidth, spriteHeight);
-  printf("sprite location: %.2f:%.2f\n", xSprite, ySprite);
   std::vector<float> vertices;
 
   for (int y = 0; y < height; y++){
     for (int x = 0; x < width; x++){
+      spriteNr = data_[x + y * width];
+      xSprite = float(spriteNr % 64) * spriteWidth;
+      ySprite = float(spriteNr / 64) * spriteHeight;
+
       xOffset = (int)x;
       yOffset = (int)y;
 
@@ -100,10 +105,5 @@ void Chunk::generateModel(){
   model.verticesCount = vertices.size() / 2;
   printf("vertices size: %lu\n", vertices.size() * sizeof(float));
   model.create(vertices);
-}
-
-Chunk::Chunk(){
-  width = 32;
-  height = 32;
 }
 

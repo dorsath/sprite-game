@@ -5,7 +5,7 @@ class Chunk: public Drawable {
   public:
     void draw();
     void setup();
-    Chunk();
+    Chunk(std::vector<int> data);
 
   private:
     int width;
@@ -13,6 +13,7 @@ class Chunk: public Drawable {
     Model model;
     GLuint textureID;
     Program program;
+    std::vector<int> data_;
     
     void generateTexture();
     void generateModel();
