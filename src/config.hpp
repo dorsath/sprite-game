@@ -23,9 +23,9 @@
 #include "drawable.hpp"
 
 //Drawables
-#include "sprite.hpp"
-#include "text.hpp"
-#include "chunk.hpp"
+#include "drawables/sprite.hpp"
+#include "drawables/text.hpp"
+#include "drawables/chunk.hpp"
 
 #include "display.hpp"
 
