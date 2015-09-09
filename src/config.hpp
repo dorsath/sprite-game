@@ -13,7 +13,7 @@
 #include "../lib/lodepng.h"
 #include <stdio.h>
 
-//My src
+//My libs
 #include "coordinate.h"
 #include "model.hpp"
 #include "octree.hpp"
@@ -21,11 +21,13 @@
 #include "font.hpp"
 #include "program.hpp"
 #include "drawable.hpp"
+#include "texture.hpp"
 
 //Drawables
 #include "drawables/sprite.hpp"
 #include "drawables/text.hpp"
 #include "drawables/chunk.hpp"
+#include "drawables/item.hpp"
 
 #include "display.hpp"
 

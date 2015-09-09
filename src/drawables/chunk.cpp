@@ -10,7 +10,7 @@ void Chunk::draw(){
   program.use();
     glUniform1i(program.uniform("sprites"), 0);
     glActiveTexture(GL_TEXTURE0);
-    glBindTexture(GL_TEXTURE_2D,  textureID);
+    glBindTexture(GL_TEXTURE_2D,  texture_->getID());
 
     glBindVertexArray(model.vao);
     glBindBuffer(GL_ARRAY_BUFFER, model.vbo);
@@ -32,7 +32,6 @@ void Chunk::draw(){
 }
 
 void Chunk::setup(){
-  generateTexture();
   generateModel();
   program.build("chunk");
   program.getUniformLocation("sprites");
@@ -41,22 +40,8 @@ void Chunk::setup(){
   position[1] = -16;
 }
 
-void Chunk::generateTexture(){
-  const char* filepath = "./textures/DungeonCrawl_ProjectUtumnoTileset.png";
-  printf("Loading texture ...");
-  std::vector<unsigned char> buffer, image;
-  lodepng::load_file(buffer, filepath); //load the image file with given filename
-  unsigned w, h;
-  unsigned error = lodepng::decode(image, w, h, buffer); //decode the png
-  printf("(%d, %d)..", w, h);
-
-  glGenTextures(1, &textureID);
-  glBindTexture(GL_TEXTURE_2D, textureID);
-  glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, w, h, 0, GL_RGBA, GL_UNSIGNED_BYTE, &image[0]);
-  glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
-  glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
-  glBindTexture(GL_TEXTURE_2D, 0);
-  printf("done\n");
+void Chunk::setTexture(Texture* texture){
+  texture_ = texture;
 }
 
 void Chunk::generateModel(){

@@ -14,6 +14,7 @@ class Model {
   public:
     void load(const char* filepath);
     void create(std::vector<float> vertices);
+    void create(float* vertices, int size);
 };
 
 #endif

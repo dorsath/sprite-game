@@ -41,6 +41,12 @@ void Model::load(const char* filepath){
   printf("\tDone\n");
 
 }
+void Model::create(float* newVertices, int size){
+  std::vector<float> vertices;
+  vertices.insert(vertices.begin(), newVertices, newVertices + size);
+  verticesCount = size;
+  create(vertices);
+}
 
 void Model::create(std::vector<float> vertices){
   glGenBuffers(1, &vbo);
