@@ -58,9 +58,9 @@ void Sprite::generateModel(){
 
 void Sprite::click_callback(int button, int action, int modifiers, Coordinate mouseCoord) {
   Coordinate clickCoord;
-  clickCoord.x = float(mouseCoord.x) / float(display::windowSize.x) * 64;
-  clickCoord.y = float(mouseCoord.y) / float(display::windowSize.y) * 48;
-  std::cout << clickCoord.x << ":" << clickCoord.y << "\n";
+  clickCoord.x = (int) (float(mouseCoord.x) / float(display::windowSize.x) * 64);
+  clickCoord.y = (int) (float(mouseCoord.y) / float(display::windowSize.y) * 48);
+  std::cout << clickCoord.x << ":" << clickCoord.y << " => " << clickCoord.x + clickCoord.y * 64 << "\n";
 }
 
 void Sprite::setup(){

@@ -6,26 +6,7 @@ all: $(DEBS)
 	$(CC) $(FLAGS) -o bin/main src/main.cpp $(DEBS)
 	./bin/main
 
-
-objects:
-	c++ -o objects lib/objects.cpp
-	./objects
-	rm ./objects
-
-octree:
-	c++ -o objects lib/create_objects.cpp
-	./objects
-	rm ./objects
-
-CT_DEBS=~/Projects/cpp/octree/src/octree.o
-
-ct_to_octree: $(CT_DEBS)
-	c++ $(CT_DEBS) -o ct_to_octree lib/ct_to_octree.cpp
-	./ct_to_octree
-	rm ./ct_to_octree
-
-octree_to_polygon: $(CT_DEBS)
-	c++ $(CT_DEBS) -o octree_to_polygon lib/octree_to_polygon.cpp
-	./octree_to_polygon
-	rm ./octree_to_polygon
+ss: $(DEBS)
+	$(CC) $(FLAGS) -o bin/sprite_selector src/sprite_selector.cpp $(DEBS)
+	./bin/sprite_selector
 
