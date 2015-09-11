@@ -3,7 +3,7 @@
 
 class Item: public Drawable {
   public:
-    void draw();
+    void draw(float dt);
     void setup();
     Item(int x, int y, int spriteID, int animationLength);
     void setTexture(Texture* texture);
@@ -17,7 +17,7 @@ class Item: public Drawable {
     int animationLength_;
 
 
-    double lastTime;
+    float timeSinceAnimation;
     float position_[2];
     
     void generateTexture();

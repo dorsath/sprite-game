@@ -1,14 +1,13 @@
 #include "../config.hpp"
 
-void Text::draw(){
-
-  double dt = glfwGetTime() - lastTime;
+void Text::draw(float dt){
 
   nFrames++;
 
   program.use();
 
-  if (dt > 0.2){
+  lastTime += dt;
+  if (lastTime > 0.2){
 
     sprintf(&text[0], "spf: %.4f", dt / float(nFrames));
 
@@ -19,7 +18,7 @@ void Text::draw(){
     glUniform1iv(program.uniform("text"), text.size(), &codes[0]);
     nFrames = 0;
 
-    lastTime = glfwGetTime();
+    lastTime = 0.0;
   }
 
   glUniform1i(program.uniform("font"), 0);

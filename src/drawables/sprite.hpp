@@ -12,7 +12,7 @@ class Sprite: public Drawable {
     //float x;
     //float y;
 
-    void draw();
+    void draw(float dt);
     void setup();
     void generateModel();
     void generateTexture();

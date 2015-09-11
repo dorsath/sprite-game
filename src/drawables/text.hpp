@@ -26,7 +26,7 @@ class Text: public Drawable {
     float x;
     float y;
 
-    void draw();
+    void draw(float dt);
     void setup();
     void generateTexture(std::string text);
     void generateModel(std::string text);

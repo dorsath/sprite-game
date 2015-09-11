@@ -6,7 +6,7 @@ Chunk::Chunk(std::vector<int> data){
   data_.insert(data_.begin(), data.begin(), data.end());
 }
 
-void Chunk::draw(){
+void Chunk::draw(float dt){
   program.use();
     glUniform1i(program.uniform("sprites"), 0);
     glActiveTexture(GL_TEXTURE0);

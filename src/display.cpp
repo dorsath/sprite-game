@@ -17,6 +17,8 @@ namespace display {
   float fzNear = 0.1f;
   float fzFar = 100.0f;
 
+  double lastTime;
+
   float lightPos[3] = {0.0f, 5.0f, 0.0f};
 
   void error_callback(int error, const char* description)
@@ -185,6 +187,7 @@ namespace display {
     //glEnable(GL_CULL_FACE);
     //glCullFace(GL_BACK);
     //glFrontFace(GL_CCW);
+    lastTime = glfwGetTime();
 
     check_error("Error after setup");
 
@@ -221,9 +224,10 @@ namespace display {
       glClearDepth(1.0f);
       glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
+      float dt = float(glfwGetTime() - lastTime);
 
       for (int i = 0; i < drawable_objects.size(); i = i + 1) {
-        drawable_objects[i]->draw();
+        drawable_objects[i]->draw(dt);
       }
 
 
@@ -231,6 +235,7 @@ namespace display {
         break;
       }
 
+      lastTime = glfwGetTime();
       glfwSwapBuffers(window);
       glfwPollEvents();
     }

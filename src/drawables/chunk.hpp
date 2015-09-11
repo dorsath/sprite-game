@@ -3,7 +3,7 @@
 
 class Chunk: public Drawable {
   public:
-    void draw();
+    void draw(float dt);
     void setup();
     Chunk(std::vector<int> data);
     void setTexture(Texture* texture);

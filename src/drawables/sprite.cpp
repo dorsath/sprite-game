@@ -1,7 +1,7 @@
 #include "../config.hpp"
 
 
-void Sprite::draw(){
+void Sprite::draw(float dt){
   program.use();
     glUniform1i(program.uniform("sprites"), 0);
     glActiveTexture(GL_TEXTURE0);

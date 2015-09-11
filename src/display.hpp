@@ -31,6 +31,7 @@ namespace display {
   void add_to_draw(Drawable* object);
   bool check_error(const char* error_message);
 
+  extern double lastTime;
   extern Matrix4 perspectiveMatrix;
   extern Matrix4 viewMatrix;
   extern int keys[348];

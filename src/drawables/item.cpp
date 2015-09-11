@@ -8,12 +8,13 @@ Item::Item(int x, int y, int spriteID, int animationLength){
   animationLength_ = animationLength;
 }
 
-void Item::draw(){
+void Item::draw(float dt){
 
   program.use();
-    if (animationLength_ > 1 && (glfwGetTime() - lastTime) > 0.2){
+    timeSinceAnimation += dt;
+    if (animationLength_ > 1 && timeSinceAnimation > 0.2){
       animate();
-      lastTime = glfwGetTime();
+      timeSinceAnimation = 0.0;
     }
 
     glUniform1i(program.uniform("sprites"), 0);
@@ -47,7 +48,7 @@ void Item::setup(){
   program.getUniformLocation("sprites");
   program.getUniformLocation("sprite");
   program.getUniformLocation("position");
-  lastTime = glfwGetTime();
+  //lastTime = glfwGetTime();
 
   generateModel();
 }

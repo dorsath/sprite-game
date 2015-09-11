@@ -4,6 +4,7 @@ Player::Player(const char* name, int x, int y){
   name_ = name;
   position_[0] = float(x);
   position_[1] = float(y);
+  speed_ = 1.0;
 }
 
 void Player::setup(){
@@ -40,7 +41,7 @@ void Player::generateModel(){
   model.create(newVertices, 12);
 }
 
-void Player::draw(){
+void Player::draw(float dt){
   program.use();
     glUniform1i(program.uniform("sprite"), 0);
     glActiveTexture(GL_TEXTURE0);
