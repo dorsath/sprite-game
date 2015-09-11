@@ -4,12 +4,11 @@
 class Texture {
   public:
     int dimensions[2];
-    Texture(const char* filepath);
+    void load(const char* filepath);
     GLuint getID();
 
   private:
     const char* filepath_;
-    void load();
     GLuint textureID_;
 
 };

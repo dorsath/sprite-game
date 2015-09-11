@@ -1,16 +1,11 @@
 #include "config.hpp"
 
-Texture::Texture(const char* filepath){
-  filepath_ = filepath;
-
-  load();
-}
-
 GLuint Texture::getID(){
   return textureID_;
 }
 
-void Texture::load(){
+void Texture::load(const char* filepath){
+  filepath_ = filepath;
   printf("Loading texture ...");
   std::vector<unsigned char> buffer, image;
   lodepng::load_file(buffer, filepath_); //load the image file with given filename
