@@ -20,7 +20,7 @@ void main() {
   }
     
 
-  vec2 spriteLayout = vec2(6.0, 10.0);
+  vec2 spriteLayout = vec2(5.0, 9.0);
   textureCoords *= 1/spriteLayout;
 
   vec4 result = texture(sprite, textureCoords);

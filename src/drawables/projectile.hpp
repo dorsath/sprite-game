@@ -13,11 +13,14 @@ class Projectile {
     Program* program;
     Model* model;
     Texture* texture;
-    float direction_;
+    float timeFlew;
+    float timeSinceAnimation;
+    float animation_;
 
     Projectile(ProjectileConfig* config, Vec2 position_in, Vec2 velocity_in);
 
     void draw(float dt);
+    void animate();
 
 
   private:
