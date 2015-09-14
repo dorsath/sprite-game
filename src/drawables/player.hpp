@@ -22,11 +22,12 @@ class Player: public Drawable {
     Vec2 position_;
     Vec2 velocity_;
     float movementSpeed_;
-    std::vector<int> animations_;
     float timeSinceAnimation;
 
     void generateModel();
-    void animate();
+    void animate(int row);
+
+    const int animations_[10] = {4, 4, 4, 4, 4 ,4, 4, 6, 6, 6};
 };
 
 #endif

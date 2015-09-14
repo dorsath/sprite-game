@@ -7,9 +7,7 @@ Player::Player(const char* name, int x, int y){
   direction_ = 5.0;
   animation_ = 0.0;
   mirror_ = false;
-  int animations[10] = {4, 4, 4, 4, 4 ,4, 4, 6, 6, 6};
   movementSpeed_ = 2.0;
-  animations_.insert(animations_.begin(), animations, animations + 10);
 }
 
 void Player::setup(){
@@ -54,8 +52,15 @@ void Player::draw(float dt){
     position_ = position_ + velocity_ * dt;
     glUniform2f(program.uniform("position"), position_.x, position_.y);
 
+    float dir;
+    if (moving_){
+      dir = direction_;
+    } else {
+      dir = direction_ + 3;
+    }
+
     if (timeSinceAnimation > 0.2){
-      animate();
+      animate((int) dir);
       timeSinceAnimation = 0.0;
     }
 
@@ -63,11 +68,7 @@ void Player::draw(float dt){
     glActiveTexture(GL_TEXTURE0);
     glBindTexture(GL_TEXTURE_2D,  texture_.getID());
 
-    if (moving_){
-      glUniform1i(program.uniform("direction"), direction_);
-    } else {
-      glUniform1i(program.uniform("direction"), direction_ + 3);
-    }
+    glUniform1i(program.uniform("direction"), dir);
 
     glUniform1i(program.uniform("animation"), animation_);
     glUniform1i(program.uniform("mirror"), mirror_);
@@ -84,40 +85,44 @@ void Player::draw(float dt){
 
 }
 
-void Player::animate(){
-  animation_ = (float) (int(animation_ + 1) % animations_[int(direction_)]);
+void Player::animate(int row){
+  animation_ = (float) (int(animation_ + 1) % animations_[row]);
 }
 
 void Player::handleKeys(){
   velocity_.set(0, 0);
 
   moving_ = false;
-  if (display::keys[87]){
+  if (display::keys[87]){ //W
     moving_ = true;
     mirror_ = false;
+    animation_ = 0.0;
     direction_ = 5.0;
     velocity_.set(0, movementSpeed_);
   }
 
-  if (display::keys[65]){
+  if (display::keys[65]){ //A
     moving_ = true;
     mirror_ = true;
     direction_ = 4.0;
+    animation_ = 0.0;
     velocity_.set(-movementSpeed_, 0);
   }
 
-  if (display::keys[68]){
-    moving_ = true;
-    mirror_ = false;
-    direction_ = 4.0;
-    velocity_.set(movementSpeed_, 0);
-  }
-
-  if (display::keys[83]){
+  if (display::keys[83]){ //S
     moving_ = true;
     mirror_ = false;
     direction_ = 6.0;
+    animation_ = 0.0;
     velocity_.set(0, -movementSpeed_);
+  }
+
+  if (display::keys[68]){ //D
+    moving_ = true;
+    mirror_ = false;
+    direction_ = 4.0;
+    animation_ = 0.0;
+    velocity_.set(movementSpeed_, 0);
   }
 }
 
