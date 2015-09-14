@@ -57,13 +57,9 @@ namespace display {
   {
     if (key == GLFW_KEY_ESCAPE && action == GLFW_PRESS)
       glfwSetWindowShouldClose(window, GL_TRUE);
-    keys[key] = action;
 
-    if (action == 1) {
-      for (int i = 0; i < drawable_objects.size(); i = i + 1) {
-        drawable_objects[i]->key_callback(key, mods);
-      }
-    }
+    keys[key] = action;
+    //drawable_objects[i]->key_callback(key, mods);
   }
 
   GLuint CreateShader(GLenum eShaderType, const std::string &strShaderFile)

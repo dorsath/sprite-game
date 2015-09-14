@@ -5,7 +5,7 @@ out vec2 vertexCoords;
 uniform vec2 position;
 
 void main(){
-  gl_Position = vec4((vertex + position) / 16 , 0.5, 1);
+  gl_Position = vec4((vertex + position) / 8 , 0.5, 1);
   vertexCoords = vertex;
   
 }

@@ -6,6 +6,7 @@ class Player: public Drawable {
     void draw(float dt);
     void setup();
     Player(const char* name, int x, int y);
+    void handleKeys();
 
   private:
     const char* name_;
@@ -14,7 +15,17 @@ class Player: public Drawable {
     Model model;
     Texture texture_;
     Program program;
+    bool mirror_;
+    bool moving_;
+    float direction_;
+    float animation_;
+    float velocity_[2];
+    float movementSpeed_;
+    std::vector<int> animations_;
+    float timeSinceAnimation;
+
     void generateModel();
+    void animate();
 };
 
 #endif
