@@ -22,6 +22,7 @@
 #include "program.hpp"
 #include "drawable.hpp"
 #include "texture.hpp"
+#include "vector.hpp"
 
 //Drawables
 #include "drawables/sprite.hpp"

@@ -10,7 +10,6 @@ class Player: public Drawable {
 
   private:
     const char* name_;
-    float position_[2];
     float speed_;
     Model model;
     Texture texture_;
@@ -19,7 +18,9 @@ class Player: public Drawable {
     bool moving_;
     float direction_;
     float animation_;
-    float velocity_[2];
+
+    Vec2 position_;
+    Vec2 velocity_;
     float movementSpeed_;
     std::vector<int> animations_;
     float timeSinceAnimation;

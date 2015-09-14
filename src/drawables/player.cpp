@@ -2,15 +2,12 @@
 
 Player::Player(const char* name, int x, int y){
   name_ = name;
-  position_[0] = float(x);
-  position_[1] = float(y);
+  position_.set(x,y);
   speed_ = 1.0;
-  direction_ = 9.0;
+  direction_ = 5.0;
   animation_ = 0.0;
   mirror_ = false;
   int animations[10] = {4, 4, 4, 4, 4 ,4, 4, 6, 6, 6};
-  velocity_[0] = 0.0;
-  velocity_[1] = 0.0;
   movementSpeed_ = 2.0;
   animations_.insert(animations_.begin(), animations, animations + 10);
 }
@@ -54,9 +51,8 @@ void Player::draw(float dt){
 
   program.use();
     timeSinceAnimation += dt;
-    position_[0] += dt * velocity_[0];
-    position_[1] += dt * velocity_[1];
-    glUniform2f(program.uniform("position"), position_[0], position_[1]);
+    position_ = position_ + velocity_ * dt;
+    glUniform2f(program.uniform("position"), position_.x, position_.y);
 
     if (timeSinceAnimation > 0.2){
       animate();
@@ -93,36 +89,35 @@ void Player::animate(){
 }
 
 void Player::handleKeys(){
-  velocity_[0] = 0.0;
-  velocity_[1] = 0.0;
+  velocity_.set(0, 0);
 
   moving_ = false;
   if (display::keys[87]){
     moving_ = true;
     mirror_ = false;
     direction_ = 5.0;
-    velocity_[1] += movementSpeed_;
+    velocity_.set(0, movementSpeed_);
   }
 
   if (display::keys[65]){
     moving_ = true;
     mirror_ = true;
     direction_ = 4.0;
-    velocity_[0] += -movementSpeed_;
+    velocity_.set(-movementSpeed_, 0);
   }
 
   if (display::keys[68]){
     moving_ = true;
     mirror_ = false;
     direction_ = 4.0;
-    velocity_[0] += movementSpeed_;
+    velocity_.set(movementSpeed_, 0);
   }
 
   if (display::keys[83]){
     moving_ = true;
     mirror_ = false;
     direction_ = 6.0;
-    velocity_[1] += -movementSpeed_;
+    velocity_.set(0, -movementSpeed_);
   }
 }
 
