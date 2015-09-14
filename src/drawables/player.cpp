@@ -4,13 +4,18 @@ Player::Player(const char* name, int x, int y){
   name_ = name;
   position_.set(x,y);
   speed_ = 1.0;
-  direction_ = 5.0;
+  direction_ = 2;
   animation_ = 0.0;
   mirror_ = false;
   movementSpeed_ = 2.0;
+  fireRate = 2.0; //attacks per second (Hz)
+  shootingSpeed = 3.0;
+
+
 }
 
 void Player::setup(){
+  //Player setup
   program.build("player");
   program.use();
 
@@ -20,15 +25,26 @@ void Player::setup(){
   program.getUniformLocation("position");
   program.getUniformLocation("sprite");
 
+  generateModel(&model);
+  texture_.load("./textures/wizard.png");
+
+
+  //Projectile setup
+  generateModel(&projectileConfig.model);
+  projectileConfig.texture.load("./textures/sword1.png");
+  projectileConfig.program.build("projectile");
+  projectileConfig.program.use();
+
+  projectileConfig.program.getUniformLocation("direction");
+  projectileConfig.program.getUniformLocation("animation");
+  projectileConfig.program.getUniformLocation("mirror");
+  projectileConfig.program.getUniformLocation("position");
+  projectileConfig.program.getUniformLocation("sprite");
 
   glUseProgram(0);
-
-  generateModel();
-  std::cout << model.verticesCount << std::endl;
-  texture_.load("./textures/wizard.png");
 }
 
-void Player::generateModel(){
+void Player::generateModel(Model* model){
   float newVertices[12] = {
     //Vertices
     0, 0,
@@ -40,11 +56,12 @@ void Player::generateModel(){
     1, 1,
   };
 
-  model.create(newVertices, 12);
+  model->create(newVertices, 12);
 }
 
 
 void Player::draw(float dt){
+  timeSinceShot += dt;
   handleKeys();
 
   program.use();
@@ -52,11 +69,9 @@ void Player::draw(float dt){
     position_ = position_ + velocity_ * dt;
     glUniform2f(program.uniform("position"), position_.x, position_.y);
 
-    float dir;
-    if (moving_){
-      dir = direction_;
-    } else {
-      dir = direction_ + 3;
+    float dir = directionsMap[direction_];
+    if (!moving_){
+      dir += 3;
     }
 
     if (timeSinceAnimation > 0.2){
@@ -81,6 +96,15 @@ void Player::draw(float dt){
     glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 0, (void*)0);
     glDrawArrays(GL_TRIANGLES, 0, model.verticesCount);
     glDisableVertexAttribArray(0);
+
+  projectileConfig.program.use();
+    glUniform1i(program.uniform("sprite"), 0);
+    glActiveTexture(GL_TEXTURE0);
+    glBindTexture(GL_TEXTURE_2D,  projectileConfig.texture.getID());
+
+    for(Projectile* projectile: projectiles){
+      projectile->draw(dt);
+    }
   glUseProgram(0);
 
 }
@@ -97,14 +121,14 @@ void Player::handleKeys(){
     moving_ = true;
     mirror_ = false;
     animation_ = 0.0;
-    direction_ = 5.0;
+    direction_ = 0;
     velocity_.set(0, movementSpeed_);
   }
 
   if (display::keys[65]){ //A
     moving_ = true;
     mirror_ = true;
-    direction_ = 4.0;
+    direction_ = 3;
     animation_ = 0.0;
     velocity_.set(-movementSpeed_, 0);
   }
@@ -112,7 +136,7 @@ void Player::handleKeys(){
   if (display::keys[83]){ //S
     moving_ = true;
     mirror_ = false;
-    direction_ = 6.0;
+    direction_ = 2;
     animation_ = 0.0;
     velocity_.set(0, -movementSpeed_);
   }
@@ -120,9 +144,31 @@ void Player::handleKeys(){
   if (display::keys[68]){ //D
     moving_ = true;
     mirror_ = false;
-    direction_ = 4.0;
+    direction_ = 1;
     animation_ = 0.0;
     velocity_.set(movementSpeed_, 0);
+  }
+
+  if (display::keys[32] && timeSinceShot > 1.0/fireRate){ //Space SHOOT! //Space SHOOT!
+    Vec2 velocity_in = velocity_;
+    switch(direction_){
+      case 0:
+        velocity_in += Vec2(0,shootingSpeed);
+        break;
+      case 1:
+        velocity_in += Vec2(shootingSpeed,0);
+        break;
+      case 2:
+        velocity_in += Vec2(0, -shootingSpeed);
+        break;
+      case 3:
+        velocity_in += Vec2(-shootingSpeed, 0);
+        break;
+
+    }
+    Projectile* projectile = new Projectile(&projectileConfig, position_ + Vec2(-0.5, -0.2), velocity_in);
+    projectiles.push_back(projectile);
+    timeSinceShot = 0.0;
   }
 }
 

@@ -16,18 +16,27 @@ class Player: public Drawable {
     Program program;
     bool mirror_;
     bool moving_;
-    float direction_;
+    int direction_;
     float animation_;
+
+    float fireRate;
+    float timeSinceShot;
+    float shootingSpeed;
 
     Vec2 position_;
     Vec2 velocity_;
     float movementSpeed_;
     float timeSinceAnimation;
 
-    void generateModel();
+    std::vector<Projectile*> projectiles;
+
+    void generateModel(Model* model);
     void animate(int row);
 
     const int animations_[10] = {4, 4, 4, 4, 4 ,4, 4, 6, 6, 6};
+    const float directionsMap[4] = {5.0, 4.0, 6.0, 4.0};
+
+    ProjectileConfig projectileConfig;
 };
 
 #endif

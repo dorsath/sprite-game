@@ -19,7 +19,7 @@ void Vec2::operator+=(Vec2 b){
 }
 
 Vec2 Vec2::operator*(float val){
-  return Vec2(x *= val, y *= val);
+  return Vec2(x * val, y * val);
 }
 
 Vec2::Vec2(float x_in, float y_in){
