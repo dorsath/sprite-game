@@ -28,19 +28,6 @@ void Player::setup(){
   generateModel(&model);
   texture_.load("./textures/wizard.png");
 
-
-  //Projectile setup
-  generateModel(&projectileConfig.model);
-  projectileConfig.texture.load("./textures/sword1.png");
-  projectileConfig.program.build("projectile");
-  projectileConfig.program.use();
-
-  projectileConfig.program.getUniformLocation("direction");
-  projectileConfig.program.getUniformLocation("animation");
-  projectileConfig.program.getUniformLocation("mirror");
-  projectileConfig.program.getUniformLocation("position");
-  projectileConfig.program.getUniformLocation("sprite");
-
   glUseProgram(0);
 }
 
@@ -96,17 +83,6 @@ void Player::draw(float dt){
     glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 0, (void*)0);
     glDrawArrays(GL_TRIANGLES, 0, model.verticesCount);
     glDisableVertexAttribArray(0);
-
-  projectileConfig.program.use();
-    glUniform1i(program.uniform("sprite"), 0);
-    glActiveTexture(GL_TEXTURE0);
-    glBindTexture(GL_TEXTURE_2D,  projectileConfig.texture.getID());
-
-    for(Projectile* projectile: projectiles){
-      projectile->draw(dt);
-    }
-  glUseProgram(0);
-
 }
 
 void Player::animate(int row){
@@ -147,28 +123,6 @@ void Player::handleKeys(){
     direction_ = 1;
     animation_ = 0.0;
     velocity_.set(movementSpeed_, 0);
-  }
-
-  if (display::keys[32] && timeSinceShot > 1.0/fireRate){ //Space SHOOT! //Space SHOOT!
-    Vec2 velocity_in = velocity_;
-    switch(direction_){
-      case 0:
-        velocity_in += Vec2(0,shootingSpeed);
-        break;
-      case 1:
-        velocity_in += Vec2(shootingSpeed,0);
-        break;
-      case 2:
-        velocity_in += Vec2(0, -shootingSpeed);
-        break;
-      case 3:
-        velocity_in += Vec2(-shootingSpeed, 0);
-        break;
-
-    }
-    Projectile* projectile = new Projectile(&projectileConfig, position_ + Vec2(-0.5, -0.2), velocity_in);
-    projectiles.push_back(projectile);
-    timeSinceShot = 0.0;
   }
 }
 

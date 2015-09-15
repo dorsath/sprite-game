@@ -26,7 +26,6 @@
 
 //Drawables
 #include "drawables/sprite.hpp"
-#include "drawables/projectile.hpp"
 #include "drawables/text.hpp"
 #include "drawables/chunk.hpp"
 #include "drawables/player.hpp"

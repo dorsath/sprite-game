@@ -28,15 +28,11 @@ class Player: public Drawable {
     float movementSpeed_;
     float timeSinceAnimation;
 
-    std::vector<Projectile*> projectiles;
-
     void generateModel(Model* model);
     void animate(int row);
 
     const int animations_[10] = {4, 4, 4, 4, 4 ,4, 4, 6, 6, 6};
     const float directionsMap[4] = {5.0, 4.0, 6.0, 4.0};
-
-    ProjectileConfig projectileConfig;
 };
 
 #endif
