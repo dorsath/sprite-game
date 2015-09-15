@@ -6,6 +6,13 @@ Chunk::Chunk(std::vector<int> data){
   data_.insert(data_.begin(), data.begin(), data.end());
 }
 
+Chunk::Chunk(){
+  width = 16;
+  height = 16;
+  std::vector<int> chunkData(width * height, 960);
+  data_.insert(data_.begin(), chunkData.begin(), chunkData.end());
+}
+
 void Chunk::draw(float dt){
   program.use();
     glUniform1i(program.uniform("sprites"), 0);
@@ -36,12 +43,40 @@ void Chunk::setup(){
   program.build("chunk");
   program.getUniformLocation("sprites");
   program.getUniformLocation("position");
-  position[0] = -16;
-  position[1] = -16;
+  position[0] = -8;
+  position[1] = -8;
 }
 
 void Chunk::setTexture(Texture* texture){
   texture_ = texture;
+}
+
+void Chunk::setTile(Coordinate tileLocation, int spriteNr){
+  float spriteWidth  = 1.0f / 64.0f;
+  float spriteHeight = 1.0f / 48.0f;
+
+  float xSprite = float(spriteNr % 64) * spriteWidth;
+  float ySprite = float(spriteNr / 64) * spriteHeight;
+  
+  float newVertices[24] = {
+    xSprite               , ySprite    ,
+    xSprite + spriteWidth , ySprite + spriteHeight,
+    xSprite               , ySprite + spriteHeight,
+
+    xSprite               , ySprite    ,
+    xSprite + spriteWidth , ySprite    ,
+    xSprite + spriteWidth , ySprite + spriteHeight
+  };
+
+  std::cout << newVertices[0] << ":" << newVertices[1] << "\n";
+  std::cout << newVertices[2] << ":" << newVertices[3] << "\n";
+
+  int verticesOffset = width * height * 12 * sizeof(float);
+  int textureCoordOffset = (tileLocation.x + tileLocation.y * width) * 12 * sizeof(float);
+
+  glBindBuffer(GL_ARRAY_BUFFER, model.vbo);
+  glBufferSubData(GL_ARRAY_BUFFER, verticesOffset + textureCoordOffset, 12 * sizeof(float), newVertices);
+  glBindBuffer(GL_ARRAY_BUFFER, 0);
 }
 
 void Chunk::generateModel(){

@@ -28,6 +28,7 @@
 #include "drawables/sprite.hpp"
 #include "drawables/text.hpp"
 #include "drawables/chunk.hpp"
+#include "drawables/builder.hpp"
 #include "drawables/player.hpp"
 #include "drawables/item.hpp"
 
