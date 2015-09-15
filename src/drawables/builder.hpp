@@ -10,7 +10,13 @@ class Builder: public Drawable {
 
   private:
     Chunk* chunk_;
+    Sprite* sprite_;
     int tool_;
+
+    int mode_;
+
+    static const int BUILD_MODE = 0;
+    static const int SELECT_MODE = 1;
 };
 #endif
 
