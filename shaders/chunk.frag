@@ -5,7 +5,9 @@ in vec2 textureCoords;
 uniform sampler2D sprites;
 
 void main() {
-  outputColor = vec4(texture(sprites, textureCoords).xy, 0, 0.0);
+  vec2 texCoords =  vec2(textureCoords.x, (1 - textureCoords.y));// * vec2(1, -1);
+  outputColor = texture(sprites, texCoords);
+  
   //outputColor = vec4(1,1,1,1);
 }
 

@@ -56,9 +56,9 @@ void Chunk::setTile(Coordinate tileLocation, int spriteNr){
   float spriteHeight = 1.0f / 48.0f;
 
   float xSprite = float(spriteNr % 64) * spriteWidth;
-  float ySprite = float(spriteNr / 64) * spriteHeight;
+  float ySprite = (47 - float(spriteNr / 64)) * spriteHeight;
   
-  float newVertices[24] = {
+  float newVertices[12] = {
     xSprite               , ySprite    ,
     xSprite + spriteWidth , ySprite + spriteHeight,
     xSprite               , ySprite + spriteHeight,
@@ -97,7 +97,7 @@ void Chunk::generateModel(){
     for (int x = 0; x < width; x++){
       spriteNr = data_[x + y * width];
       xSprite = float(spriteNr % 64) * spriteWidth;
-      ySprite = float(spriteNr / 64) * spriteHeight;
+      ySprite = (47 - float(spriteNr / 64)) * spriteHeight;
 
       xOffset = (int)x;
       yOffset = (int)y;
