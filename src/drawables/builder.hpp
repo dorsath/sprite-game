@@ -15,6 +15,11 @@ class Builder: public Drawable {
 
     int mode_;
 
+    void buildKeyHandles(float dt);
+
+
+    float timeSinceSaveAction;
+    float saveActionTimeout;
     static const int BUILD_MODE = 0;
     static const int SELECT_MODE = 1;
 };

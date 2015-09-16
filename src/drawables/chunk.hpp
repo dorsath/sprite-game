@@ -6,9 +6,11 @@ class Chunk: public Drawable {
     void draw(float dt);
     void setup();
     Chunk(std::vector<int> data);
+    Chunk(std::string path);
     Chunk();
     void setTexture(Texture* texture);
     void setTile(Coordinate tileLocation, int spriteNr);
+    void save();
     int width;
     int height;
 

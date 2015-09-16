@@ -8,9 +8,7 @@ int main(void) {
   Texture* spritesTexture = new Texture();
   spritesTexture->load("./textures/DungeonCrawl_ProjectUtumnoTileset.png");
 
-  std::vector<int> chunkData(32 * 32, 960);
-  chunkData[528] = 832;
-  Chunk* chunk = new Chunk(chunkData);
+  Chunk* chunk = new Chunk("./resources/level_1/test.raw");
   chunk->setTexture(spritesTexture);
 
   Item* brazier = new Item(-1, 0, 781, 8);

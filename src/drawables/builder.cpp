@@ -5,6 +5,8 @@ Builder::Builder(){
   display::Register reg = {this, 0, 0, 1, 1};
   display::clickRegisters.push_back(reg);
   mode_ = BUILD_MODE;
+  timeSinceSaveAction = 0.0;
+  saveActionTimeout = 0.3;
 }
 
 
@@ -39,10 +41,24 @@ void Builder::click_callback(int button, int action, int modifiers, Coordinate m
 
 void Builder::draw(float dt){
   if (mode_ == BUILD_MODE){
+    buildKeyHandles(dt);
     chunk_->draw(dt);
   } else { 
     sprite_->draw(dt);
   }
+}
+
+void Builder::buildKeyHandles(float  dt){
+  timeSinceSaveAction += dt;
+  if (display::keys[32] && timeSinceSaveAction > saveActionTimeout){
+    std::cout << "saving" << std::endl;
+    chunk_->save();
+    std::cout << "saved" << std::endl;
+
+    timeSinceSaveAction = 0.0;
+
+  }
+
 }
 
 void Builder::setChunk(Chunk* chunk){

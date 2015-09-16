@@ -1,9 +1,19 @@
 #include "../config.hpp"
 
 Chunk::Chunk(std::vector<int> data){
-  width = 32;
-  height = 32;
+  width = 16;
+  height = 16;
   data_.insert(data_.begin(), data.begin(), data.end());
+}
+
+Chunk::Chunk(std::string path){
+  width = 16;
+  height = 16;
+  std::ifstream chunkFile(path, std::ios::binary);
+  int data[width * height];
+  chunkFile.read ((char*)data, width * height * sizeof(int));
+  chunkFile.close();
+  data_.insert(data_.begin(), data, data + sizeof(data));
 }
 
 Chunk::Chunk(){
@@ -54,6 +64,9 @@ void Chunk::setTexture(Texture* texture){
 void Chunk::setTile(Coordinate tileLocation, int spriteNr){
   float spriteWidth  = 1.0f / 64.0f;
   float spriteHeight = 1.0f / 48.0f;
+  int index = tileLocation.x + width * tileLocation.y;
+  data_[index] = spriteNr;
+  
 
   float xSprite = float(spriteNr % 64) * spriteWidth;
   float ySprite = (47 - float(spriteNr / 64)) * spriteHeight;
@@ -130,5 +143,15 @@ void Chunk::generateModel(){
   model.verticesCount = vertices.size() / 2;
   printf("vertices size: %lu\n", vertices.size() * sizeof(float));
   model.create(vertices);
+}
+
+void Chunk::save(){
+  std::string path = "./resources/level_1/test.raw";
+  std::ofstream chunkFile(path, std::ios::binary);
+  if (!chunkFile.is_open())
+    std::cout << "file not open" << std::endl;
+  const char* text = "Hello world\n";
+  chunkFile.write((char*)&data_[0], data_.size() * sizeof(int));
+  chunkFile.close();
 }
 
