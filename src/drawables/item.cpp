@@ -1,8 +1,8 @@
 #include "../config.hpp"
 
 Item::Item(int x, int y, int spriteID, int animationLength){
-  position_[0] = x;
-  position_[1] = y;
+  position_.x = x;
+  position_.y = y;
 
   spriteID_ = spriteID;
   animationLength_ = animationLength;
@@ -24,7 +24,7 @@ void Item::draw(float dt){
     glBindVertexArray(model.vao);
     glBindBuffer(GL_ARRAY_BUFFER, model.vbo);
 
-    glUniform2f(program.uniform("position"), position_[0], position_[1]);
+    glUniform2f(program.uniform("position"), position_.x + display::camera.x, position_.y + display::camera.y);
 
     glEnableVertexAttribArray(0);
 

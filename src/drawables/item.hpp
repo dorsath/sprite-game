@@ -18,7 +18,7 @@ class Item: public Drawable {
 
 
     float timeSinceAnimation;
-    float position_[2];
+    Vec2 position_;
     
     void generateTexture();
     void generateModel();

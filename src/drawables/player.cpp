@@ -53,7 +53,8 @@ void Player::draw(float dt){
 
   program.use();
     timeSinceAnimation += dt;
-    position_ = position_ + velocity_ * dt;
+    //position_ = position_ + velocity_ * dt;
+    display::camera += velocity_ * -dt;
     glUniform2f(program.uniform("position"), position_.x, position_.y);
 
     float dir = directionsMap[direction_];

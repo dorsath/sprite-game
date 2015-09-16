@@ -8,6 +8,7 @@ namespace display {
   std::vector<Register> clickRegisters;
 
   int keys[348];
+  Vec2 camera(0, 0);
   Matrix4 perspectiveMatrix;
   Matrix4 viewMatrix;
   Coordinate mouseCoord;

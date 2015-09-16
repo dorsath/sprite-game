@@ -17,6 +17,7 @@ namespace display {
 
   extern Coordinate windowSize;
 
+  extern Vec2 camera;
   extern std::vector<Register> scrollRegisters;
   extern std::vector<Register> clickRegisters;
   void error_callback(int error, const char* description);

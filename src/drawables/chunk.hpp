@@ -20,7 +20,7 @@ class Chunk: public Drawable {
     Program program;
     std::vector<int> data_;
 
-    float position[2];
+    Vec2 position_;
     
     void generateModel();
 };

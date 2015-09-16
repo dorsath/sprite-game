@@ -32,7 +32,7 @@ void Chunk::draw(float dt){
     glBindVertexArray(model.vao);
     glBindBuffer(GL_ARRAY_BUFFER, model.vbo);
 
-    glUniform2f(program.uniform("position"), position[0], position[1]);
+    glUniform2f(program.uniform("position"), position_.x + display::camera.x, position_.y + display::camera.y);
 
     glEnableVertexAttribArray(0);
     glEnableVertexAttribArray(1);
@@ -53,8 +53,8 @@ void Chunk::setup(){
   program.build("chunk");
   program.getUniformLocation("sprites");
   program.getUniformLocation("position");
-  position[0] = -8;
-  position[1] = -8;
+  position_.x = -8;
+  position_.y = -8;
 }
 
 void Chunk::setTexture(Texture* texture){
