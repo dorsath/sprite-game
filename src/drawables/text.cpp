@@ -2,31 +2,21 @@
 
 void Text::draw(float dt){
 
-  nFrames++;
 
   program.use();
 
-  lastTime += dt;
-  if (lastTime > 0.2){
-
-    sprintf(&text[0], "spf: %.4f", dt / float(nFrames));
-
-    std::vector<int> codes;
-    for(char& c : text) {
-      codes.push_back(int(c) - 32);
-    }
-    glUniform1iv(program.uniform("text"), text.size(), &codes[0]);
-    nFrames = 0;
-
-    lastTime = 0.0;
-  }
 
   glUniform1i(program.uniform("font"), 0);
   glActiveTexture(GL_TEXTURE0);
   glBindTexture(GL_TEXTURE_2D,  font.textureID);
 
+
   glBindVertexArray(model.vao);
   glBindBuffer(GL_ARRAY_BUFFER, model.vbo);
+
+  if (textUpdated){
+    updateText();
+  }
 
   glEnableVertexAttribArray(0);
   glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 0, (void*)0);
@@ -34,6 +24,21 @@ void Text::draw(float dt){
   glDisableVertexAttribArray(0);
 
   glUseProgram(0);
+}
+
+void Text::setText(std::string input_text){
+  textUpdated = true;
+  text = input_text;
+}
+
+
+void Text::updateText(){
+  std::vector<int> codes;
+  for(char& c : text) {
+    codes.push_back(int(c) - 32);
+  }
+  glUniform1iv(program.uniform("text"), text.size(), &codes[0]);
+  textUpdated = false;
 }
 
 
@@ -76,7 +81,6 @@ void Text::setup(){
   generateModel(text);
 
   
-  lastTime = glfwGetTime();
   std::vector<int> codes;
   for(char& c : text) {
     codes.push_back(int(c) - 32);

@@ -14,8 +14,7 @@ class Text: public Drawable {
       int column;
     };
 
-    double lastTime;
-    int nFrames;
+    bool textUpdated;
 
   public:
     Font font;
@@ -26,6 +25,8 @@ class Text: public Drawable {
     float x;
     float y;
 
+    void setText(std::string input_text);
+    void updateText();
     void draw(float dt);
     void setup();
     void generateTexture(std::string text);

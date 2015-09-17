@@ -27,6 +27,7 @@
 //Drawables
 #include "drawables/sprite.hpp"
 #include "drawables/text.hpp"
+#include "drawables/fps_meter.hpp"
 #include "drawables/chunk.hpp"
 #include "drawables/builder.hpp"
 #include "drawables/player.hpp"

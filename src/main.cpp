@@ -13,7 +13,7 @@ int main(void) {
 
   Item* brazier = new Item(-1, 0, 781, 8);
   brazier->setTexture(spritesTexture);
-  Text* fpsCounter = new Text("spf:       ", -1, -1);
+  FPSMeter* fpsCounter = new FPSMeter();
 
   Player* player = new Player("Ronald", 0, 0);
 
