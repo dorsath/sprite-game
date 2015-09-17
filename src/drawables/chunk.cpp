@@ -150,7 +150,6 @@ void Chunk::save(){
   std::ofstream chunkFile(path, std::ios::binary);
   if (!chunkFile.is_open())
     std::cout << "file not open" << std::endl;
-  const char* text = "Hello world\n";
   chunkFile.write((char*)&data_[0], data_.size() * sizeof(int));
   chunkFile.close();
 }
