@@ -5,9 +5,7 @@ class Chunk: public Drawable {
   public:
     void draw(float dt);
     void setup();
-    Chunk(std::vector<int> data);
-    Chunk(std::string path);
-    Chunk();
+    Chunk(std::string path, Vec2 position);
     void setTexture(Texture* texture);
     void setTile(Coordinate tileLocation, int spriteNr);
     void save();
@@ -22,6 +20,7 @@ class Chunk: public Drawable {
 
     Vec2 position_;
     
+    std::string path_;
     void generateModel();
 };
 

@@ -2,7 +2,8 @@
 
 Player::Player(const char* name, int x, int y){
   name_ = name;
-  position_.set(x,y);
+  position_ = Vec2(0, 0);
+  display::camera.set(-x,-y);
   speed_ = 1.0;
   direction_ = 2;
   animation_ = 0.0;

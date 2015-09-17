@@ -1,26 +1,15 @@
 #include "../config.hpp"
 
-Chunk::Chunk(std::vector<int> data){
+Chunk::Chunk(std::string path, Vec2 position){
+  path_ = path;
   width = 16;
   height = 16;
-  data_.insert(data_.begin(), data.begin(), data.end());
-}
-
-Chunk::Chunk(std::string path){
-  width = 16;
-  height = 16;
+  position_ = position * width;
   std::ifstream chunkFile(path, std::ios::binary);
   int data[width * height];
   chunkFile.read ((char*)data, width * height * sizeof(int));
   chunkFile.close();
   data_.insert(data_.begin(), data, data + sizeof(data));
-}
-
-Chunk::Chunk(){
-  width = 16;
-  height = 16;
-  std::vector<int> chunkData(width * height, 960);
-  data_.insert(data_.begin(), chunkData.begin(), chunkData.end());
 }
 
 void Chunk::draw(float dt){
@@ -53,8 +42,6 @@ void Chunk::setup(){
   program.build("chunk");
   program.getUniformLocation("sprites");
   program.getUniformLocation("position");
-  position_.x = -8;
-  position_.y = -8;
 }
 
 void Chunk::setTexture(Texture* texture){
@@ -146,8 +133,7 @@ void Chunk::generateModel(){
 }
 
 void Chunk::save(){
-  std::string path = "./resources/level_1/test.raw";
-  std::ofstream chunkFile(path, std::ios::binary);
+  std::ofstream chunkFile(path_, std::ios::binary);
   if (!chunkFile.is_open())
     std::cout << "file not open" << std::endl;
   chunkFile.write((char*)&data_[0], data_.size() * sizeof(int));

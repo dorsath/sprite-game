@@ -7,6 +7,7 @@
 #include <fstream>
 #include <vector>
 #include <string>
+#include <sstream>
 #include "boost/tuple/tuple.hpp"
 #include <map>
 #include "../lib/Matrices.h"
@@ -31,6 +32,7 @@
 #include "drawables/builder.hpp"
 #include "drawables/player.hpp"
 #include "drawables/item.hpp"
+#include "drawables/level.hpp"
 
 #include "display.hpp"
 
