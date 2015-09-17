@@ -16,7 +16,6 @@
 //My libs
 #include "coordinate.h"
 #include "model.hpp"
-#include "octree.hpp"
 #include "fbo.hpp"
 #include "font.hpp"
 #include "program.hpp"
