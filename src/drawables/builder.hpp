@@ -17,7 +17,9 @@ class Builder: public Drawable {
     int mode_;
 
     void buildKeyHandles(float dt);
+    void moveToChunk(Vec2 position);
 
+    Vec2 position_;
 
     float timeSinceSaveAction;
     float timeSinceMoveAction;

@@ -6,10 +6,14 @@ Chunk::Chunk(std::string path, Vec2 position){
   height = 16;
   position_ = position * width;
   std::ifstream chunkFile(path, std::ios::binary);
-  int data[width * height];
-  chunkFile.read ((char*)data, width * height * sizeof(int));
-  chunkFile.close();
-  data_.insert(data_.begin(), data, data + sizeof(data));
+  if (chunkFile.is_open()){
+    int data[width * height];
+    chunkFile.read ((char*)data, width * height * sizeof(int));
+    chunkFile.close();
+    data_.insert(data_.begin(), data, data + sizeof(data));
+  } else {
+    data_.insert(data_.begin(), 3, width * height);
+  }
 }
 
 void Chunk::draw(float dt){

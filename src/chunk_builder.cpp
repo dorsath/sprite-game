@@ -2,6 +2,7 @@
 
 int main(){
   display::setup();
+  display::camera = Vec2(-8, -8);
 
   Texture* spritesTexture = new Texture();
   spritesTexture->load("./textures/DungeonCrawl_ProjectUtumnoTileset.png");
@@ -16,7 +17,6 @@ int main(){
 
   builder->setLevel(level);
   display::add_to_draw(builder);
-  display::camera = Vec2(-8, -8);
 
   display::draw();
 

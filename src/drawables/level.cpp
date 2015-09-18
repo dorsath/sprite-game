@@ -28,6 +28,10 @@ void Level::load(){
   datafile.close();
 
   data_.insert(data_.begin(), buffer, buffer + numberOfChunks);
+
+  //for (ChunkData chunkData: data_){
+  //  std::cout << chunkData.x << ":" << chunkData.y << " - " << chunkData.n << std::endl;
+  //}
 }
 
 void Level::setTexture(Texture* texture){
@@ -45,7 +49,7 @@ Chunk* Level::findChunk(Vec2 position){
   for (ChunkData chunkData: data_){
     if (Vec2(chunkData.x, chunkData.y) == position){
       std::cout << "found chunk" << std::endl;
-      return loadChunk(chunkData);
+      return chunks[chunkData.n];
     }
   }
 
@@ -69,6 +73,7 @@ Chunk* Level::loadChunk(ChunkData chunkData){
   Chunk* chunk = new Chunk(filepath, Vec2(chunkData.x, chunkData.y));
   chunk->setTexture(texture_);
   chunk->setup();
+  chunks.push_back(chunk);
   return chunk;
 }
 

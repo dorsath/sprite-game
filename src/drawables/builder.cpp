@@ -9,6 +9,7 @@ Builder::Builder(){
   timeSinceMoveAction = 0.0;
   saveActionTimeout = 0.3;
   moveActionTimeout = 0.3;
+  position_ = Vec2(0, 0);
 }
 
 
@@ -55,7 +56,7 @@ void Builder::buildKeyHandles(float  dt){
   timeSinceMoveAction += dt;
   if (display::keys[32] && timeSinceSaveAction > saveActionTimeout){
     std::cout << "saving" << std::endl;
-    chunk_->save();
+    level_->save();
     std::cout << "saved" << std::endl;
 
     timeSinceSaveAction = 0.0;
@@ -63,11 +64,25 @@ void Builder::buildKeyHandles(float  dt){
   }
   if (timeSinceMoveAction > moveActionTimeout){
     if (display::keys[263]){ //left
-      std::cout << "moving" << std::endl;
+      position_ += Vec2(-1, 0);
+      std::cout << position_.x << ":" << position_.y << std::endl;
+      moveToChunk(position_);
+      timeSinceMoveAction = 0.0;
+    }
+
+    if (display::keys[262]){ //right
+      position_ += Vec2(1, 0);
+      std::cout << position_.x << ":" << position_.y << std::endl;
+      moveToChunk(position_);
       timeSinceMoveAction = 0.0;
     }
   }
 
+}
+
+void Builder::moveToChunk(Vec2 position){
+  display::camera = position_ * -16 + Vec2(-8, -8);
+  chunk_ = level_->findChunk(position);
 }
 
 void Builder::setLevel(Level* level){
@@ -76,8 +91,8 @@ void Builder::setLevel(Level* level){
 
 void Builder::setup(){
   sprite_ = new Sprite;
-
-  chunk_ = level_->findChunk(Vec2(0, 0));
+  level_->setup();
+  moveToChunk(position_);
   //chunk_->setup();
   sprite_->setup();
 }
