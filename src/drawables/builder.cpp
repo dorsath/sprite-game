@@ -6,7 +6,9 @@ Builder::Builder(){
   display::clickRegisters.push_back(reg);
   mode_ = BUILD_MODE;
   timeSinceSaveAction = 0.0;
+  timeSinceMoveAction = 0.0;
   saveActionTimeout = 0.3;
+  moveActionTimeout = 0.3;
 }
 
 
@@ -50,6 +52,7 @@ void Builder::draw(float dt){
 
 void Builder::buildKeyHandles(float  dt){
   timeSinceSaveAction += dt;
+  timeSinceMoveAction += dt;
   if (display::keys[32] && timeSinceSaveAction > saveActionTimeout){
     std::cout << "saving" << std::endl;
     chunk_->save();
@@ -58,16 +61,23 @@ void Builder::buildKeyHandles(float  dt){
     timeSinceSaveAction = 0.0;
 
   }
+  if (timeSinceMoveAction > moveActionTimeout){
+    if (display::keys[263]){ //left
+      std::cout << "moving" << std::endl;
+      timeSinceMoveAction = 0.0;
+    }
+  }
 
 }
 
-void Builder::setChunk(Chunk* chunk){
-  chunk_ = chunk;
-  sprite_ = new Sprite;
+void Builder::setLevel(Level* level){
+  level_ = level;
 }
-
 
 void Builder::setup(){
-  chunk_->setup();
+  sprite_ = new Sprite;
+
+  chunk_ = level_->findChunk(Vec2(0, 0));
+  //chunk_->setup();
   sprite_->setup();
 }

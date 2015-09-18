@@ -4,12 +4,13 @@ class Builder: public Drawable {
   public:
     void draw(float dt);
     void setup();
-    void setChunk(Chunk* chunk);
+    void setLevel(Level* level);
     void click_callback(int button, int action, int modifiers, Coordinate mouseCoord);
     Builder();
 
   private:
     Chunk* chunk_;
+    Level* level_;
     Sprite* sprite_;
     int tool_;
 
@@ -19,6 +20,8 @@ class Builder: public Drawable {
 
 
     float timeSinceSaveAction;
+    float timeSinceMoveAction;
+    float moveActionTimeout;
     float saveActionTimeout;
     static const int BUILD_MODE = 0;
     static const int SELECT_MODE = 1;

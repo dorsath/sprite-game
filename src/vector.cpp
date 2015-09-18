@@ -18,6 +18,10 @@ void Vec2::operator+=(Vec2 b){
   y += b.y;
 }
 
+bool Vec2::operator==(Vec2 b){
+  return (x == b.x && y == b.y);
+}
+
 Vec2 Vec2::operator*(float val){
   return Vec2(x * val, y * val);
 }

@@ -2,6 +2,13 @@
 #define DRAWABLES_LEVEL_HPP
 
 class Level: public Drawable {
+  private:
+    struct ChunkData {
+      int x;
+      int y;
+      int n;
+    };
+
   public:
     Level(std::string file);
     void draw(float dt);
@@ -10,12 +17,10 @@ class Level: public Drawable {
     void save();
     void load();
 
+    Chunk* loadChunk(ChunkData chunkData);
+    Chunk* findChunk(Vec2 position);
+
   private:
-    struct ChunkData {
-      int x;
-      int y;
-      int n;
-    };
 
     std::vector<Chunk*> chunks;
 

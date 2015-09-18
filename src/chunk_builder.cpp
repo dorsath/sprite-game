@@ -7,12 +7,16 @@ int main(){
   spritesTexture->load("./textures/DungeonCrawl_ProjectUtumnoTileset.png");
 
   Builder* builder = new Builder();
-  Chunk* chunk = new Chunk("./resources/level_1/1.dat", Vec2(-0.5, -0.5));
-  chunk->setTexture(spritesTexture);
 
-  builder->setChunk(chunk);
+  Level* level = new Level("./resources/level_1/level.dat");
+  level->setTexture(spritesTexture);
 
+  //Chunk* chunk = new Chunk("./resources/level_1/1.dat", Vec2(-0.5, -0.5));
+  //chunk->setTexture(spritesTexture);
+
+  builder->setLevel(level);
   display::add_to_draw(builder);
+  display::camera = Vec2(-8, -8);
 
   display::draw();
 

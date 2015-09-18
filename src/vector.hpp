@@ -10,6 +10,7 @@ class Vec2 {
     Vec2 operator*(float val);
     Vec2 operator+(Vec2 b);
     void operator+=(Vec2 b);
+    bool operator==(Vec2 b);
 
     Vec2();
     Vec2(float x_in, float y_in);

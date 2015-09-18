@@ -6,7 +6,7 @@ GLuint Texture::getID(){
 
 void Texture::load(const char* filepath){
   filepath_ = filepath;
-  printf("Loading texture ...");
+  std::cout << "Loading texture ...";
   std::vector<unsigned char> buffer, image;
   lodepng::load_file(buffer, filepath_); //load the image file with given filename
   unsigned w, h;
@@ -20,7 +20,7 @@ void Texture::load(const char* filepath){
   glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
   glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
   glBindTexture(GL_TEXTURE_2D, 0);
-  printf("done\n");
+  std::cout << "done" << std::endl;
 }
 
 

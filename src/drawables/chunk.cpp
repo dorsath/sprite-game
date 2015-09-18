@@ -38,6 +38,7 @@ void Chunk::draw(float dt){
 }
 
 void Chunk::setup(){
+  std::cout << "setting up a chunk" << std::endl;
   generateModel();
   program.build("chunk");
   program.getUniformLocation("sprites");

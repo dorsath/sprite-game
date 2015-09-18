@@ -29,10 +29,10 @@
 #include "drawables/text.hpp"
 #include "drawables/fps_meter.hpp"
 #include "drawables/chunk.hpp"
-#include "drawables/builder.hpp"
 #include "drawables/player.hpp"
 #include "drawables/item.hpp"
 #include "drawables/level.hpp"
+#include "drawables/builder.hpp"
 
 #include "display.hpp"
 
