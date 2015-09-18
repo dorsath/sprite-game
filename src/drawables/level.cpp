@@ -18,16 +18,18 @@ void Level::save(){
 void Level::load(){
   std::ifstream datafile(filename_, std::ios::binary);
 
-  datafile.seekg(0, std::ios::end);
-  int numberOfChunks = datafile.tellg() / sizeof(ChunkData);
-  datafile.seekg(0, std::ios::beg);
+  if (datafile.is_open()){
+    datafile.seekg(0, std::ios::end);
+    int numberOfChunks = datafile.tellg() / sizeof(ChunkData);
+    datafile.seekg(0, std::ios::beg);
 
-  ChunkData buffer[numberOfChunks];
-  datafile.read((char*)buffer, numberOfChunks * sizeof(ChunkData));
+    ChunkData buffer[numberOfChunks];
+    datafile.read((char*)buffer, numberOfChunks * sizeof(ChunkData));
 
-  datafile.close();
+    datafile.close();
+    data_.insert(data_.begin(), buffer, buffer + numberOfChunks);
+  }
 
-  data_.insert(data_.begin(), buffer, buffer + numberOfChunks);
 
   //for (ChunkData chunkData: data_){
   //  std::cout << chunkData.x << ":" << chunkData.y << " - " << chunkData.n << std::endl;
@@ -49,7 +51,8 @@ Chunk* Level::findChunk(Vec2 position){
   for (ChunkData chunkData: data_){
     if (Vec2(chunkData.x, chunkData.y) == position){
       std::cout << "found chunk" << std::endl;
-      return chunks[chunkData.n];
+      std::cout << chunkData.n << " - " << chunks.size() << std::endl;
+      return chunks[chunkData.n - 1];
     }
   }
 
@@ -80,7 +83,6 @@ Chunk* Level::loadChunk(ChunkData chunkData){
 
 void Level::setup(){
   for (ChunkData chunkData: data_){
-    Chunk* chunk = loadChunk(chunkData);
-    chunks.push_back(chunk);
+    loadChunk(chunkData);
   }
 }

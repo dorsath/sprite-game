@@ -12,7 +12,7 @@ Chunk::Chunk(std::string path, Vec2 position){
     chunkFile.close();
     data_.insert(data_.begin(), data, data + sizeof(data));
   } else {
-    data_.insert(data_.begin(), 3, width * height);
+    data_.insert(data_.begin(), width * height, 960);
   }
 }
 

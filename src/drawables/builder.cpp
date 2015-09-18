@@ -22,7 +22,6 @@ void Builder::click_callback(int button, int action, int modifiers, Coordinate m
         chunk_->height - mouseCoord.y * chunk_->height / display::windowSize.y};
 
       tileLocation.y -= 1;
-      std::cout << tileLocation.x << ":" << tileLocation.y << "\n";
       chunk_->setTile(tileLocation, tool_);
     }
 
@@ -31,6 +30,7 @@ void Builder::click_callback(int button, int action, int modifiers, Coordinate m
         mouseCoord.x * 64 / display::windowSize.x,
         mouseCoord.y * 48 / display::windowSize.y};
       tool_ = tileLocation.x + tileLocation.y * 64;
+      std::cout << "Current tool: " << tool_ << "\n";
       mode_ = BUILD_MODE;
     }
   }
@@ -72,6 +72,20 @@ void Builder::buildKeyHandles(float  dt){
 
     if (display::keys[262]){ //right
       position_ += Vec2(1, 0);
+      std::cout << position_.x << ":" << position_.y << std::endl;
+      moveToChunk(position_);
+      timeSinceMoveAction = 0.0;
+    }
+
+    if (display::keys[265]){ //up
+      position_ += Vec2(0, 1);
+      std::cout << position_.x << ":" << position_.y << std::endl;
+      moveToChunk(position_);
+      timeSinceMoveAction = 0.0;
+    }
+
+    if (display::keys[264]){ //down
+      position_ += Vec2(0, -1);
       std::cout << position_.x << ":" << position_.y << std::endl;
       moveToChunk(position_);
       timeSinceMoveAction = 0.0;
