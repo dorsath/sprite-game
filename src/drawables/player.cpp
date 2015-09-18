@@ -1,18 +1,16 @@
 #include "../config.hpp"
 
+const int Player::animations_[] = {4, 4, 4, 4, 4 ,4, 4, 6, 6, 6};
+const float Player::directionsMap[] = {5.0, 4.0, 6.0, 4.0};
+
 Player::Player(const char* name, int x, int y){
   name_ = name;
   position_ = Vec2(0, 0);
   display::camera.set(-x,-y);
-  speed_ = 1.0;
   direction_ = 2;
   animation_ = 0.0;
   mirror_ = false;
-  movementSpeed_ = 2.0;
-  fireRate = 2.0; //attacks per second (Hz)
-  shootingSpeed = 3.0;
-
-
+  movementSpeed_ = 3.0;
 }
 
 void Player::setup(){
@@ -49,7 +47,6 @@ void Player::generateModel(Model* model){
 
 
 void Player::draw(float dt){
-  timeSinceShot += dt;
   handleKeys();
 
   program.use();
@@ -85,9 +82,13 @@ void Player::draw(float dt){
     glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 0, (void*)0);
     glDrawArrays(GL_TRIANGLES, 0, model.verticesCount);
     glDisableVertexAttribArray(0);
+
+  glUseProgram(0);
 }
 
 void Player::animate(int row){
+  if (animations_[direction_] < animation_)
+    animation_ = 0.0;
   animation_ = (float) (int(animation_ + 1) % animations_[row]);
 }
 
@@ -98,7 +99,6 @@ void Player::handleKeys(){
   if (display::keys[87]){ //W
     moving_ = true;
     mirror_ = false;
-    animation_ = 0.0;
     direction_ = 0;
     velocity_.set(0, movementSpeed_);
   }
@@ -107,7 +107,6 @@ void Player::handleKeys(){
     moving_ = true;
     mirror_ = true;
     direction_ = 3;
-    animation_ = 0.0;
     velocity_.set(-movementSpeed_, 0);
   }
 
@@ -115,7 +114,6 @@ void Player::handleKeys(){
     moving_ = true;
     mirror_ = false;
     direction_ = 2;
-    animation_ = 0.0;
     velocity_.set(0, -movementSpeed_);
   }
 
@@ -123,7 +121,6 @@ void Player::handleKeys(){
     moving_ = true;
     mirror_ = false;
     direction_ = 1;
-    animation_ = 0.0;
     velocity_.set(movementSpeed_, 0);
   }
 }

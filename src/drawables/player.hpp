@@ -10,7 +10,6 @@ class Player: public Drawable {
 
   private:
     const char* name_;
-    float speed_;
     Model model;
     Texture texture_;
     Program program;
@@ -18,10 +17,6 @@ class Player: public Drawable {
     bool moving_;
     int direction_;
     float animation_;
-
-    float fireRate;
-    float timeSinceShot;
-    float shootingSpeed;
 
     Vec2 position_;
     Vec2 velocity_;
@@ -31,8 +26,9 @@ class Player: public Drawable {
     void generateModel(Model* model);
     void animate(int row);
 
-    const int animations_[10] = {4, 4, 4, 4, 4 ,4, 4, 6, 6, 6};
-    const float directionsMap[4] = {5.0, 4.0, 6.0, 4.0};
+    static const int animations_[];
+    static const float directionsMap[];
+
 };
 
 #endif
