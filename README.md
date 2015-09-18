@@ -32,5 +32,6 @@ Use WASD to walk around.
 To edit the map:
 `make cb`
 
-Right click  to select a sprite. Left click on the sprite to select it and left click somewhere in the chunk to place it.
+Right click  to select a sprite. Left click on the sprite to select it and click or drag an area in the chunk to place it.
 Space saves it to file. You can then walk around in that chunk in the game.
+To navigate between chunks use the arrow keys.

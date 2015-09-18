@@ -30,6 +30,3 @@ class Builder: public Drawable {
     static const int SELECT_MODE = 1;
 };
 #endif
-
-
-
