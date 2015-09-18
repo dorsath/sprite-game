@@ -14,18 +14,44 @@ Builder::Builder(){
 
 
 void Builder::click_callback(int button, int action, int modifiers, Coordinate mouseCoord){
-  std::cout << "button: " << button << std::endl;
-  if (button == 0 && action == 0) {
+  std::cout << "button: " << button << "action: " << action << std::endl;
+  if (button == 0) {
     if (mode_ == BUILD_MODE){
-      Coordinate tileLocation = {
-        mouseCoord.x * chunk_->width  / display::windowSize.x,
-        chunk_->height - mouseCoord.y * chunk_->height / display::windowSize.y};
+      if (action == 0){
+        Coordinate tileLocation = {
+          mouseCoord.x * chunk_->width  / display::windowSize.x,
+          chunk_->height - mouseCoord.y * chunk_->height / display::windowSize.y};
 
-      tileLocation.y -= 1;
-      chunk_->setTile(tileLocation, tool_);
+        tileLocation.y -= 1;
+
+        int xVector = tileLocation.x - tileLocationFrom.x;
+        if (xVector != 0) {
+          xVector = xVector / abs(xVector);
+        } else {
+          xVector = 1;
+        }
+
+        int yVector = tileLocation.y - tileLocationFrom.y;
+        if (yVector != 0) {
+          yVector = yVector / abs(yVector);
+        } else {
+          yVector = 1;
+        }
+
+        for (int y = tileLocationFrom.y; y != tileLocation.y + yVector; y += yVector){
+          for (int x = tileLocationFrom.x; x != tileLocation.x + xVector; x += xVector){
+            Coordinate n = {x,y};
+            chunk_->setTile(n, tool_);
+          }
+        }
+      }
+      if (action == 1) {
+        tileLocationFrom.x = mouseCoord.x * chunk_->width  / display::windowSize.x;
+        tileLocationFrom.y = chunk_->height - mouseCoord.y * chunk_->height / display::windowSize.y - 1;
+      }
     }
 
-    if (mode_ == SELECT_MODE){
+    if (mode_ == SELECT_MODE && action == 0){
       Coordinate tileLocation = {
         mouseCoord.x * 64 / display::windowSize.x,
         mouseCoord.y * 48 / display::windowSize.y};

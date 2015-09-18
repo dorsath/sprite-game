@@ -50,13 +50,9 @@ void Level::draw(float dt){
 Chunk* Level::findChunk(Vec2 position){
   for (ChunkData chunkData: data_){
     if (Vec2(chunkData.x, chunkData.y) == position){
-      std::cout << "found chunk" << std::endl;
-      std::cout << chunkData.n << " - " << chunks.size() << std::endl;
       return chunks[chunkData.n - 1];
     }
   }
-
-  std::cout << "no chunk found, new chunk coming up" << std::endl;
 
   ChunkData newChunkData;
   newChunkData.x = position.x;
@@ -71,7 +67,6 @@ Chunk* Level::loadChunk(ChunkData chunkData){
   std::stringstream fmt; 
   fmt << chunkPath << chunkData.n << ".dat";
   std::string filepath = fmt.str();
-  std::cout << "Loading: " << filepath << " " << chunkData.x << ":" << chunkData.y << std::endl;
 
   Chunk* chunk = new Chunk(filepath, Vec2(chunkData.x, chunkData.y));
   chunk->setTexture(texture_);

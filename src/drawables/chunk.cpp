@@ -42,7 +42,6 @@ void Chunk::draw(float dt){
 }
 
 void Chunk::setup(){
-  std::cout << "setting up a chunk" << std::endl;
   generateModel();
   program.build("chunk");
   program.getUniformLocation("sprites");
@@ -73,8 +72,6 @@ void Chunk::setTile(Coordinate tileLocation, int spriteNr){
     xSprite + spriteWidth , ySprite + spriteHeight
   };
 
-  std::cout << newVertices[0] << ":" << newVertices[1] << "\n";
-  std::cout << newVertices[2] << ":" << newVertices[3] << "\n";
 
   int verticesOffset = width * height * 12 * sizeof(float);
   int textureCoordOffset = (tileLocation.x + tileLocation.y * width) * 12 * sizeof(float);
@@ -95,7 +92,6 @@ void Chunk::generateModel(){
   float spriteWidth  = 1.0f / 64.0f;
   float spriteHeight = 1.0f / 48.0f;
 
-  printf("sprite size: %.2f:%.2f\n", spriteWidth, spriteHeight);
   std::vector<float> vertices;
 
   for (int y = 0; y < height; y++){
@@ -133,7 +129,6 @@ void Chunk::generateModel(){
     }
   }
   model.verticesCount = vertices.size() / 2;
-  printf("vertices size: %lu\n", vertices.size() * sizeof(float));
   model.create(vertices);
 }
 
