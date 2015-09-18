@@ -5,10 +5,8 @@ Builder::Builder(){
   display::Register reg = {this, 0, 0, 1, 1};
   display::clickRegisters.push_back(reg);
   mode_ = BUILD_MODE;
-  timeSinceSaveAction = 0.0;
-  timeSinceMoveAction = 0.0;
-  saveActionTimeout = 0.3;
-  moveActionTimeout = 0.3;
+  saveTimeout.setTimeLimit(0.3);
+  moveTimeout.setTimeLimit(0.3);
   position_ = Vec2(0, 0);
 }
 
@@ -78,43 +76,43 @@ void Builder::draw(float dt){
 }
 
 void Builder::buildKeyHandles(float  dt){
-  timeSinceSaveAction += dt;
-  timeSinceMoveAction += dt;
-  if (display::keys[32] && timeSinceSaveAction > saveActionTimeout){
+  saveTimeout.tick(dt);
+  moveTimeout.tick(dt);
+  if (display::keys[32] && saveTimeout.ready()){
     std::cout << "saving" << std::endl;
     level_->save();
     std::cout << "saved" << std::endl;
 
-    timeSinceSaveAction = 0.0;
+    saveTimeout.reset();
 
   }
-  if (timeSinceMoveAction > moveActionTimeout){
+  if (moveTimeout.ready()){
     if (display::keys[263]){ //left
       position_ += Vec2(-1, 0);
       std::cout << position_.x << ":" << position_.y << std::endl;
       moveToChunk(position_);
-      timeSinceMoveAction = 0.0;
+      moveTimeout.reset();
     }
 
     if (display::keys[262]){ //right
       position_ += Vec2(1, 0);
       std::cout << position_.x << ":" << position_.y << std::endl;
       moveToChunk(position_);
-      timeSinceMoveAction = 0.0;
+      moveTimeout.reset();
     }
 
     if (display::keys[265]){ //up
       position_ += Vec2(0, 1);
       std::cout << position_.x << ":" << position_.y << std::endl;
       moveToChunk(position_);
-      timeSinceMoveAction = 0.0;
+      moveTimeout.reset();
     }
 
     if (display::keys[264]){ //down
       position_ += Vec2(0, -1);
       std::cout << position_.x << ":" << position_.y << std::endl;
       moveToChunk(position_);
-      timeSinceMoveAction = 0.0;
+      moveTimeout.reset();
     }
   }
 

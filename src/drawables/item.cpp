@@ -4,17 +4,19 @@ Item::Item(int x, int y, int spriteID, int animationLength){
   position_.x = x;
   position_.y = y;
 
+  texture_ = Texture::find_or_create("DungeonCrawl_ProjectUtumnoTileset.png");
   spriteID_ = spriteID;
   animationLength_ = animationLength;
+  animationTimeout_.setTimeLimit(0.15);
 }
 
 void Item::draw(float dt){
 
   program.use();
-    timeSinceAnimation += dt;
-    if (animationLength_ > 1 && timeSinceAnimation > 0.2){
+    animationTimeout_.tick(dt);
+    if (animationLength_ > 1 && animationTimeout_.ready()){
       animate();
-      timeSinceAnimation = 0.0;
+      animationTimeout_.reset();
     }
 
     glUniform1i(program.uniform("sprites"), 0);

@@ -1,6 +1,7 @@
 #include "../config.hpp"
 
 Level::Level(std::string file){
+  texture_ = Texture::find_or_create("DungeonCrawl_ProjectUtumnoTileset.png");
   filename_ = file;
   load();
 }

@@ -22,10 +22,8 @@ class Builder: public Drawable {
     Coordinate tileLocationFrom;
     Vec2 position_;
 
-    float timeSinceSaveAction;
-    float timeSinceMoveAction;
-    float moveActionTimeout;
-    float saveActionTimeout;
+    Timeout saveTimeout;
+    Timeout moveTimeout;
     static const int BUILD_MODE = 0;
     static const int SELECT_MODE = 1;
 };

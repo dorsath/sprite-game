@@ -4,14 +4,10 @@ int main(void) {
 
   display::setup();
 
-  Texture* spritesTexture = new Texture();
-  spritesTexture->load("./textures/DungeonCrawl_ProjectUtumnoTileset.png");
 
   Level* level = new Level("./resources/level_1/level.dat");
-  level->setTexture(spritesTexture);
 
-  Item* brazier = new Item(-1, 0, 781, 8);
-  brazier->setTexture(spritesTexture);
+  Item* brazier = new Item(8, 5, 781, 8);
   FPSMeter* fpsCounter = new FPSMeter();
 
   Player* player = new Player("Ronald", 8, 8);

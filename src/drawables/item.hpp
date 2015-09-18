@@ -17,7 +17,7 @@ class Item: public Drawable {
     int animationLength_;
 
 
-    float timeSinceAnimation;
+    Timeout animationTimeout_;
     Vec2 position_;
     
     void generateTexture();

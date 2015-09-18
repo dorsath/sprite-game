@@ -16,6 +16,7 @@
 
 //My libs
 #include "coordinate.h"
+#include "timeout.hpp"
 #include "model.hpp"
 #include "fbo.hpp"
 #include "font.hpp"

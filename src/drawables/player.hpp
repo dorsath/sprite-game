@@ -11,7 +11,7 @@ class Player: public Drawable {
   private:
     const char* name_;
     Model model;
-    Texture texture_;
+    Texture* texture_;
     Program program;
     bool mirror_;
     bool moving_;
@@ -21,7 +21,7 @@ class Player: public Drawable {
     Vec2 position_;
     Vec2 velocity_;
     float movementSpeed_;
-    float timeSinceAnimation;
+    Timeout animationTimeout_;
 
     void generateModel(Model* model);
     void animate(int row);
@@ -32,5 +32,3 @@ class Player: public Drawable {
 };
 
 #endif
-
-

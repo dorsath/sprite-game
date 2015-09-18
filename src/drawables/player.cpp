@@ -3,6 +3,7 @@
 const int Player::animations_[] = {4, 4, 4, 4, 4 ,4, 4, 6, 6, 6};
 const float Player::directionsMap[] = {5.0, 4.0, 6.0, 4.0};
 
+
 Player::Player(const char* name, int x, int y){
   name_ = name;
   position_ = Vec2(0, 0);
@@ -11,6 +12,7 @@ Player::Player(const char* name, int x, int y){
   animation_ = 0.0;
   mirror_ = false;
   movementSpeed_ = 3.0;
+  animationTimeout_.setTimeLimit(0.2);
 }
 
 void Player::setup(){
@@ -25,7 +27,7 @@ void Player::setup(){
   program.getUniformLocation("sprite");
 
   generateModel(&model);
-  texture_.load("./textures/wizard.png");
+  texture_ = Texture::find_or_create("wizard.png");
 
   glUseProgram(0);
 }
@@ -50,9 +52,8 @@ void Player::draw(float dt){
   handleKeys();
 
   program.use();
-    timeSinceAnimation += dt;
-    //position_ = position_ + velocity_ * dt;
-    display::camera += velocity_ * -dt;
+    animationTimeout_.tick(dt);
+    display::camera += velocity_ * -dt; //camera follows player
     glUniform2f(program.uniform("position"), position_.x, position_.y);
 
     float dir = directionsMap[direction_];
@@ -60,14 +61,14 @@ void Player::draw(float dt){
       dir += 3;
     }
 
-    if (timeSinceAnimation > 0.2){
+    if (animationTimeout_.ready()){
       animate((int) dir);
-      timeSinceAnimation = 0.0;
+      animationTimeout_.reset();
     }
 
     glUniform1i(program.uniform("sprite"), 0);
     glActiveTexture(GL_TEXTURE0);
-    glBindTexture(GL_TEXTURE_2D,  texture_.getID());
+    glBindTexture(GL_TEXTURE_2D,  texture_->getID());
 
     glUniform1i(program.uniform("direction"), dir);
 
